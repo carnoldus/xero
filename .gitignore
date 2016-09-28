@@ -2,10 +2,6 @@
 /build
 /compressed
 
-# Certs
-*.pem
-*.cer
-
 # Vendor directories
 /vendor
 

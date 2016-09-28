@@ -50,10 +50,12 @@ class DataController
     /**
      * @param $request          The request name
      * @param string $format    The response format, default XML
+     * @param bool $webResponse Whether this response will go out to the web or not.
+     *                          Dictates things like setting headers, etc
      * @return string           A JSON encoded object containing information about
      *                          the response (success, location, updated and notice)
      */
-    public function performBackup($request, $format = 'xml')
+    public function performBackup($request, $format = 'xml', $webResponse = true)
     {
         //  Get the data from Xero
         $data = $this->get($request, $format);
@@ -67,18 +69,20 @@ class DataController
         }
 
         $filepath = DOCSPATH.$request.'.'.$format;
+        $location = $webResponse ? $_SERVER['SERVER_NAME'].$filepath : PUBLICDIR.$filepath;
 
         $response = new \stdClass();
         //  Return true or false
         $response->success = $success;
         //  Note that even if the save failed, there may be a file present from an old backup
-        $response->location = file_exists(PUBLICDIR.$filepath) ? $_SERVER['SERVER_NAME'].$filepath : null;
+        $response->location = file_exists(PUBLICDIR.$filepath) ? $location : null;
         //  Grab the last updated date. Could be for an old file, could be a new one, could be never
         $response->updated = $this->getUpdatedDateString(PUBLICDIR.$filepath);
         //  Put an optional notice for display
         $response->notice = $notice;
 
-        return $this->prepJSONResponse($response);
+
+        return $webResponse ? $this->prepJSONResponse($response) : $response;
     }
 
     /**

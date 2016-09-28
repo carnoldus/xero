@@ -31,7 +31,7 @@ if(isset($argv)){
 if(isset($_GET['request'])){
 
     $controller = new DataController();
-    echo $controller->performBackup($_GET['request'], 'xml');
+    echo $controller->performBackup($_GET['request']);
 
 }else{
 
