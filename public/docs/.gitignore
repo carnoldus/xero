@@ -1,0 +1,5 @@
+# Ignore everything in this directory. This directory
+# is only used to store generated files.
+*
+# Except this file, as it ensures the above happens
+!.gitignore
