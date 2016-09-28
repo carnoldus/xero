@@ -17,7 +17,7 @@
         "psr-4": {"carnoldus\\": "src/"}
     },
     "scripts": {
-        "post-dependencies-solving": "cp -r vendor/twbs/bootstrap/dist/ public/bootstrap",
+        "post-install-cmd": "cp -r vendor/twbs/bootstrap/dist/ public/bootstrap",
         "post-update-cmd": "cp -r vendor/twbs/bootstrap/dist/ public/bootstrap"
     }
 }
