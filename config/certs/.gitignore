@@ -1,0 +1,6 @@
+# Ignore everything in this directory. This directory
+# is only used to store ssl certs, which shouldn't be
+# committed
+*
+# Except this file, as it ensures the above happens
+!.gitignore
