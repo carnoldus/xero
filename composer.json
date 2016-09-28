@@ -1,0 +1,22 @@
+{
+    "name": "carnoldus/xero",
+    "description": "Sample Data Access \"app\"",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Colin Arnoldus",
+            "email": "colin@arnoldus.ca"
+        }
+    ],
+    "require": {
+        "xero/xerooauth-php": "^0.7.0",
+        "twbs/bootstrap": "^3.3",
+        "twig/twig": "^1.25"
+    },
+    "autoload": {
+        "psr-4": {"carnoldus\\": "src/"}
+    },
+    "scripts": {
+        "post-update-cmd": "cp -r vendor/twbs/bootstrap/dist/ public/bootstrap"
+    }
+}

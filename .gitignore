@@ -1,0 +1,18 @@
+# Phing directories
+/build
+/compressed
+
+# Certs
+*.pem
+*.cer
+
+# Vendor directories
+/vendor
+
+# Generated files
+/public/docs/*
+/public/bootstrap
+
+# System files
+.DS_Store
+/.idea

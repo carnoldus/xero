@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Phing Build File -->
+
+<project name="Xero" default="rebuild">
+
+    <property name="builddir" value="./build" override="true" />
+    <property name="compressdir" value="./compressed" override="true" />
+
+    <fileset dir="." id="publicfiles">
+        <patternset>
+            <include name="config/**" />
+            <include name="public/**" />
+            <exclude name="public/docs/*" />
+            <include name="src/**" />
+            <include name="config/**" />
+
+            <include name="vendor/autoload.php" />
+
+            <include name="vendor/xero/xerooauth-php/license.txt" />
+            <include name="vendor/xero/xerooauth-php/certs/**" />
+            <include name="vendor/xero/xerooauth-php/lib/**" />
+
+            <include name="vendor/twig/twig/LICENSE" />
+            <include name="vendor/twig/twig/lib/**" />
+
+            <include name="vendor/composer/**" />
+        </patternset>
+    </fileset>
+
+    <target name="build" description="builds a production version of the site for deployment">
+
+        <mkdir dir="${builddir}" />
+        <copy todir="${builddir}">
+            <fileset refid="publicfiles" />
+        </copy>
+
+        <mkdir dir="${compressdir}" />
+        <zip destfile="${compressdir}/site.zip" basedir="${builddir}" />
+
+    </target>
+
+    <target name="rebuild">
+
+        <delete dir="${builddir}" />
+        <delete dir="${compressdir}" />
+        <phingcall target="build" />
+
+    </target>
+
+</project>
