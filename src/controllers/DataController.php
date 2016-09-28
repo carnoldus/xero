@@ -19,18 +19,12 @@ use carnoldus\xero\XeroConnector;
  */
 class DataController
 {
-
-    /**
-     * @var XeroConnector $xero The connection class
-     */
-    private $xero;
-
     /**
      * @var array $allowableRequests A list of allowable request strings,
      * which acts like a set of prepared statements for the get() method.
      * If the requested action isn't on the list, it's not allowed
      */
-    private $allowableRequests = [
+    protected $allowableRequests = [
         'AccountsAll'=>[
             'request'=>'Accounts',
             'filter'=>[]],
@@ -44,7 +38,6 @@ class DataController
      */
     public function __construct()
     {
-        $this->xero = new XeroConnector();
     }
 
     /**
@@ -82,7 +75,20 @@ class DataController
         $response->notice = $notice;
 
 
-        return $webResponse ? $this->prepJSONResponse($response) : $response;
+        if($webResponse){
+
+            //  Encode
+            $response = json_encode($response);
+            //  Set the header, or else jQuery gets upset
+            header('Content-type:application/json;charset=utf-8');
+            //  Return
+            return $response;
+
+        }else{
+
+            //  Return
+            return $response;
+        }
     }
 
     /**
@@ -90,7 +96,7 @@ class DataController
      *                  $allowableRequests in order to function
      * @return string   The returned value from the service
      */
-    private function get($request, $format = 'xml')
+    protected function get($request, $format = 'xml')
     {
         //  Check to ensure we can do what we're asked
         if(!isset($this->allowableRequests[$request])){
@@ -101,7 +107,8 @@ class DataController
         $params = $this->allowableRequests[$request];
 
         //  Make the call
-        $response = $this->xero->get($params['request'], $params['filter'], $format);
+        $xero = new XeroConnector();
+        $response = $xero->get($params['request'], $params['filter'], $format);
 
         //  Return either the valid data, or false on failure
         return $response;
@@ -113,7 +120,7 @@ class DataController
      * @param $ext      The file extension of the data type
      * @return bool     true on success, false otherwise
      */
-    private function saveToDisk($data, $filename, $ext)
+    protected function saveToDisk($data, $filename, $ext)
     {
         return (file_put_contents(PUBLICDIR.DOCSPATH.$filename.'.'.$ext, $data, LOCK_EX) !== false);
     }
@@ -122,22 +129,9 @@ class DataController
      * @param $file     The file path for the file we want to examine
      * @return string   A formatted date for display, or "Never" if the file does not exist
      */
-    private function getUpdatedDateString($file)
+    protected function getUpdatedDateString($file)
     {
         return file_exists($file) ? date('m/d/y', filemtime($file)) : 'Never';
-    }
-
-    /**
-     * @param $data     The data to encode to JSON
-     * @return string   The JSON encoded string
-     */
-    private function prepJSONResponse($data)
-    {
-        //  Encode
-        $encoded = json_encode($data);
-        //  Set the header, or else jQuery gets upset
-        header('Content-type:application/json;charset=utf-8');
-        return $encoded;
     }
 
 }

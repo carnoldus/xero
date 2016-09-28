@@ -14,15 +14,10 @@ class CLIController
 {
 
     /**
-     * @var \carnoldus\controllers\DataController The controller that handles data requests to Xero
-     */
-    private $dataController;
-
-    /**
      * @var array $allowableCommands A list of allowable command strings and their associated
      * meta information, such as help descriptions
      */
-    private $allowableCommands = [
+    protected $allowableCommands = [
         '-h'=>[
             'method'=>'help',
             'help'=>'Provides help info regarding possible commands (and got you here)'],
@@ -36,7 +31,6 @@ class CLIController
      */
     public function __construct()
     {
-        $this->dataController = new DataController();
     }
 
     /**
@@ -67,13 +61,14 @@ class CLIController
      * @param $args     The args passed to the command line
      * @return string   Information about the success or failure of the backup process
      */
-    private function backup($args)
+    protected function backup($args)
     {
         $backupRequest = isset($args[2]) ? $args[2] : null;
 
         if(!is_null($backupRequest)){
 
-            $response = $this->dataController->performBackup($backupRequest, 'xml', false);
+            $dataController = new DataController();
+            $response = $dataController->performBackup($backupRequest, 'xml', false);
 
             if($response->success){
                 return  $this->padResponse(
@@ -87,7 +82,7 @@ class CLIController
 
         }else{
 
-            return $this->padResponse('Invalid backup type. Try AccountsAll or ContactsOnlyVendors');
+            return $this->padResponse("\033[31mNo backup type specified.\e[0m Try AccountsAll or ContactsOnlyVendors");
 
         }
 
@@ -97,7 +92,7 @@ class CLIController
      * @param $args     The args passed to the command line
      * @return string   A text summary of all available commands and how to use them
      */
-    private function help($args)
+    protected function help($args)
     {
         $helpStrings = array_map(function($key, $value){
 
@@ -115,7 +110,7 @@ class CLIController
      * @param int $trailing The amound of trailing line breaks to add
      * @return string       The passed text, padded out on either end by line breaks
      */
-    private function padResponse($text, $leading = 1, $trailing = 2)
+    protected function padResponse($text, $leading = 1, $trailing = 2)
     {
         $response = '';
 

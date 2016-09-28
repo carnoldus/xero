@@ -39,21 +39,23 @@
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="col-sm-6 text-center">
-                                    <div class="well">
+                                    <div id="accountsBkpContainer" class="alert alert-info">
                                         <button id="accountsBkpBtn" type="button" class="btn btn-default">Backup Accounts</button>
                                         <p>Last Backup: <span id="accountsBkpBadge" class="badge">{{ accountsAllLastUpdate }}</span></p>
-                                        <div id="accountsBkpContainer" class="{{ accountsAllDownloadButtonsVisibility }}">
+                                        <div id="accountsBkpBtnContainer" class="{{ accountsAllDownloadButtonsVisibility }}">
                                             <a class="btn btn-default margin" href="docs/AccountsAll.xml" target="_blank" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> XML</a>
+                                            <!-- Ran out of time to implement this guy -->
                                             <!--a class="btn btn-default margin" href="" target="_blank" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> PDF</a-->
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6 text-center">
-                                    <div class="well">
+                                    <div id="vendorsBkpContainer" class="alert alert-info">
                                         <button id="vendorsBkpBtn" type="button" class="btn btn-default">Backup Vendors</button>
                                         <p>Last Backup: <span id="vendorsBkpBadge" class="badge">{{ contactsOnlyVendorsLastUpdate }}</span></p>
-                                        <div id="vendorsBkpContainer" class="{{ contactsOnlyVendorsDownloadButtonsVisibility }}">
+                                        <div id="vendorsBkpBtnContainer" class="{{ contactsOnlyVendorsDownloadButtonsVisibility }}">
                                             <a class="btn btn-default margin" href="docs/ContactsOnlyVendors.xml" target="_blank" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> XML</a>
+                                            <!-- Ran out of time to implement this guy -->
                                             <!--a class="btn btn-default margin" href="" target="_blank" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> PDF</a-->
                                         </div>
                                     </div>
@@ -62,6 +64,10 @@
                         </div>
 
                     </div>
+                </div>
+
+                <div id="infoBox" class="alert">
+                    <strong>Danger!</strong> Indicates a dangerous or potentially negative action.
                 </div>
 
             </div>

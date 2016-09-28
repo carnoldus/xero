@@ -53,7 +53,7 @@ class WebController
      * @param $file     The file path for the file we want to examine
      * @return string   A formatted date for display, or "Never" if the file does not exist
      */
-    private function getUpdatedDateString($file)
+    protected function getUpdatedDateString($file)
     {
         return file_exists($file) ? date('m/d/y', filemtime($file)) : 'Never';
     }
