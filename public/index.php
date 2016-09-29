@@ -15,6 +15,7 @@ define('PUBLICDIR', dirname(__FILE__));
 define('DOCSPATH', '/docs/');
 
 require ROOTDIR.'/vendor/autoload.php';
+require ROOTDIR.'/config/config.php';
 
 use carnoldus\controllers\WebController;
 use carnoldus\controllers\DataController;

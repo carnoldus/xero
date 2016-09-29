@@ -37,8 +37,8 @@ namespace carnoldus\xero {
             'user_agent' => 'Data Backup',
 
             //  X509 keys and certs
-            'consumer_key' => 'BZDEAYGWGSIQHLYDJMPWSXVUCK0EWL',
-            'shared_secret' => 'NOXJVBCZALZVYAHTPRWIAHM2BEUFGT',
+            'consumer_key' => PUBLICKEY,
+            'shared_secret' => PRIVATEKEY,
             'rsa_private_key' => ROOTDIR.'/config/certs/privatekey.pem',
             'rsa_public_key' => ROOTDIR.'/config/certs/publickey.cer',
 
@@ -47,8 +47,8 @@ namespace carnoldus\xero {
             //  set even when using a private, stateless connection. It
             //  just uses the same token set as the X509 keys and a blank
             //  session ID
-            'access_token' => 'BZDEAYGWGSIQHLYDJMPWSXVUCK0EWL',
-            'access_token_secret' => 'NOXJVBCZALZVYAHTPRWIAHM2BEUFGT',
+            'access_token' => PUBLICKEY,
+            'access_token_secret' => PRIVATEKEY,
             'session_handle' => '',
 
             //  API info
